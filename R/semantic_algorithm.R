@@ -14,11 +14,12 @@
 #' @export
 load_and_preprocess <- function(file_path) {
 
+
   # Read the text file
-  raw <- readLines(file_path)
+  raw <- read.delim(file_path, header = FALSE, stringsAsFactors = FALSE)
 
   # Collapse all lines into one single string
-  full_text <- paste(raw, collapse = " ")
+  full_text <- paste(unlist(raw[1,]), collapse = " ")
 
   # Convert all letters to lowercase
   full_text <- tolower(full_text)
