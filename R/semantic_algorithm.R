@@ -10,23 +10,21 @@
 #' @examples
 #' words <- load_and_preprocess("Example_negative.txt")
 #' head(words, 20)
-
-
+#'
+#' @export
 load_and_preprocess <- function(file_path) {
 
   # Read the text file
   raw <- readLines(file_path)
-  full_text <- paste(raw, collapse = " ")
 
   # Collapse all lines into one single string
-  full_text <- paste(raw[[1]], collapse = " ")
+  full_text <- paste(raw, collapse = " ")
 
   # Convert all letters to lowercase
   full_text <- tolower(full_text)
 
   # Split the text into individual words
-  # We remove spaces, periods, commas, and semicolons
-  # Split on tabs first to separate sentences
+  # We remove tabs, spaces, periods, commas, and semicolons
   words <- strsplit(full_text, split = "\t", fixed = TRUE)[[1]]
   words <- unlist(strsplit(words, split = " ", fixed = TRUE))
   words <- unlist(strsplit(words, split = ".", fixed = TRUE))
@@ -38,6 +36,16 @@ load_and_preprocess <- function(file_path) {
 
   return(words)
 }
+
+
+positive_words <- c("happy", "joy*", "wonder*", "love", "great*",
+                    "excit*", "beautiful", "cheer*", "delight*",
+                    "hope*", "grateful", "good", "nice*")
+
+negative_words <- c("sad", "bad", "terr*", "awful", "horrible",
+                    "disappoint*", "nause*", "angr*", "hate*",
+                    "misera*", "stress*", "worr*", "frustrat*",
+                    "fatigue", "restless", "overwhelm*", "trapped")
 
 
 #' Match Sentiment Words Against a Token Vector
@@ -54,25 +62,13 @@ load_and_preprocess <- function(file_path) {
 #' @examples
 #' words <- load_and_preprocess("Example_negative.txt")
 #' match_sentiment_words(words, negative_words)
-
-
-positive_words <- c("happy", "joy*", "wonder*", "love", "great*",
-                    "excit*", "beautiful", "cheer*", "delight*",
-                    "hope*", "grateful", "good", "nice*")
-
-negative_words <- c("sad", "bad", "terr*", "awful", "horrible",
-                    "disappoint*", "nause*", "angr*", "hate*",
-                    "misera*", "stress*", "worr*", "frustrat*",
-                    "fatigue", "restless", "overwhelm*", "trapped")
-
+#'
+#' @export
 match_sentiment_words <- function(word_vector, sentiment_words) {
 
   # Create an empty vector to store the counts
   counts <- integer(length(sentiment_words))
   names(counts) <- sentiment_words
-
-
-
 
   # Loop over every word in the sentiment list
   for (i in seq_along(sentiment_words)) {
@@ -110,7 +106,8 @@ match_sentiment_words <- function(word_vector, sentiment_words) {
 #' @examples
 #' words <- load_and_preprocess("Example_negative.txt")
 #' summarise_sentiment(words, positive_words, negative_words)
-
+#'
+#' @export
 summarise_sentiment <- function(word_vector, positive_words, negative_words) {
 
   # Run matching for both lists
