@@ -1,0 +1,3 @@
+export(load_and_preprocess)
+export(match_sentiment_words)
+export(summarise_sentiment)
