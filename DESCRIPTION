@@ -2,7 +2,8 @@ Package: SemanticsR
 Type: Package
 Title: Semantic algorithm
 Version: 0.1.0
-Authors@R: Adonis Sotoodeh
+Authors@R: person("Adonis", "Sotoodeh", 
+                  role = c("aut", "cre"))
 Description: Semantic algorithm that counts positive and negative words in a plain text document and returns a score
 License: MIT
 Encoding: UTF-8
